@@ -5,6 +5,7 @@ import com.example.parceldelivery1.dto.FinalParcel;
 import com.example.parceldelivery1.enums.Size;
 import com.example.parceldelivery1.model.Parcel;
 import com.example.parceldelivery1.service.ParcelService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -18,17 +19,24 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.logging.Logger;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = OrderController.class)
 class OrderControllerTest {
 
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private ParcelService parcelService;
+
+    @MockBean
+    private Logger logger;
+
 
     @Test
     void getOrder() throws Exception {
@@ -55,10 +63,9 @@ class OrderControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        String expectedJson = finalParcel.toString();
         String outputInJson = result.getResponse().getContentAsString();
 
-        assertThat(outputInJson).isEqualTo(expectedJson);
+        assertThat(outputInJson).isEqualTo(new ObjectMapper().writeValueAsString(finalParcel));
 
     }
 }

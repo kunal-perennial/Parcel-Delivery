@@ -25,12 +25,6 @@ public class OrderController {
     @Autowired
     private ParcelService parcelService;
 
-//    @PostMapping("/order")
-//    public ResponseEntity getOrder(@Valid Parcel parcel,
-//                                   @RequestParam(required = false, defaultValue = "") String voucher){
-//        return new ResponseEntity<>(parcelService.placeOrder(parcel,voucher), HttpStatus.ACCEPTED);
-//    }
-
     @GetMapping("/order")
     public ResponseEntity getOrder(@RequestParam("weight")
                                        @Positive(message = ControllerMessage.POSITIVE_WEIGHT_MESSAGE)

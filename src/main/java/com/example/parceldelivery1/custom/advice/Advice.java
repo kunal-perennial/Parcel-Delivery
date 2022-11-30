@@ -18,17 +18,6 @@ import java.util.List;
 @ControllerAdvice
 public class Advice{
 
-//    @ExceptionHandler(BindException.class)
-//    public ResponseEntity<Object> handleInvalidInput(BindException invalidInputs) {
-//        List<FieldError> fieldErrors = invalidInputs.getFieldErrors();
-//        List<String> errorList = new ArrayList<>();
-//        for (FieldError field: fieldErrors) {
-//            errorList.add(field.getDefaultMessage());
-//        }
-//        return new ResponseEntity<>(new InvalidInputs(HttpStatus.BAD_REQUEST.value(),errorList.toString()),HttpStatus.BAD_REQUEST);
-//
-//    }
-
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintInput(ConstraintViolationException invalidConstraint) {
         String fieldErrors = invalidConstraint.getMessage();
