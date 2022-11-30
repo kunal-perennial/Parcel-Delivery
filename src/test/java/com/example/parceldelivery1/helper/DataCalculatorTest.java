@@ -4,41 +4,43 @@ import com.example.parceldelivery1.dto.Billing;
 import com.example.parceldelivery1.enums.Size;
 import com.example.parceldelivery1.model.Parcel;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(value = DataCalculator.class)
+
+@ExtendWith(MockitoExtension.class)
 class DataCalculatorTest {
 
-    @Autowired
-    private MockMvc mockMvc;
 
-    @MockBean
+    @Spy
     private DataCalculator dataCalculatorMock;
 
     @Test
-    void getFinalCost() {
-        Parcel parcelMock = new Parcel();
-        parcelMock.setWeight(4);
-        parcelMock.setHeight(20);
-        parcelMock.setWidth(20);
-        parcelMock.setLength(10);
-
-        Billing billingMock = new Billing();
-        billingMock.setSize(Size.LARGE);
-        billingMock.setCost(195.0);
-
-        String voucher = "sfds";
-
-        Mockito.when(dataCalculatorMock.getFinalCost(parcelMock,voucher)).thenReturn(billingMock);
-        assertEquals(billingMock, dataCalculatorMock.getFinalCost(parcelMock,voucher));
+    void calculateVolume() {
+        Parcel parcelMock = new Parcel(4,20,20,10);
+        int volume = 20*20*10;
+        when(dataCalculatorMock.calculateVolume(parcelMock)).thenReturn(volume);
+        assertEquals(4000,dataCalculatorMock.calculateVolume(parcelMock));
     }
+
+    @Test
+    void calculateCost() {
+        Parcel parcelMock = new Parcel(4,20,20,10);
+        Billing billingMock = new Billing(Size.LARGE,195.0);
+        when(dataCalculatorMock.calculateCost(parcelMock)).thenReturn(billingMock);
+        assertEquals(billingMock,dataCalculatorMock.calculateCost(parcelMock));
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.parceldelivery1.custom.exceptions;
+package com.example.parceldelivery1.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

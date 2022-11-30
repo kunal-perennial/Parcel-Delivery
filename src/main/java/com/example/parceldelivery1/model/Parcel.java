@@ -1,20 +1,15 @@
 package com.example.parceldelivery1.model;
 
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * This Class is used to store the information related to parcel which is entered by users.
+ *
  * @author Kunal Duse <kunal.duse@perennialsys.com>
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Parcel {
 
     /**

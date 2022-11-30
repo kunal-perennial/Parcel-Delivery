@@ -2,45 +2,49 @@ package com.example.parceldelivery1.service.serviceImpl;
 
 import com.example.parceldelivery1.dto.Billing;
 import com.example.parceldelivery1.dto.FinalParcel;
+import com.example.parceldelivery1.dto.VoucherDTO;
 import com.example.parceldelivery1.enums.Size;
+import com.example.parceldelivery1.helper.DataCalculator;
 import com.example.parceldelivery1.model.Parcel;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(value = ParcelServiceImpl.class)
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class ParcelServiceImplTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    private DataCalculator dataCalculator;
 
-    @MockBean
+    @Mock
+    private WebClient.Builder webClientBuilder;
+    @InjectMocks
     private ParcelServiceImpl parcelServiceMock;
 
     @Test
     void placeOrder() {
-        Parcel parcelMock = new Parcel();
-        parcelMock.setWeight(4);
-        parcelMock.setHeight(20);
-        parcelMock.setWidth(20);
-        parcelMock.setLength(10);
+        Parcel parcelMock = new Parcel(9,20,20,10);
 
-        Billing billingMock = new Billing();
-        billingMock.setSize(Size.LARGE);
-        billingMock.setCost(195.0);
+        Billing billingMock = new Billing(Size.LARGE,200.0);
 
         FinalParcel finalParcelMock = new FinalParcel(parcelMock,billingMock);
+        VoucherDTO voucherDTOMock = new VoucherDTO("aaa",10);
 
-        String voucher = "sfds";
+        String voucher = "aaa";
 
-        Mockito.when(parcelServiceMock.placeOrder(parcelMock,voucher)).thenReturn(finalParcelMock);
-        assertThat(parcelServiceMock.placeOrder(parcelMock,voucher)).isEqualTo(finalParcelMock);
+        when(dataCalculator.calculateCost(parcelMock)).thenReturn(billingMock);
+        when(webClientBuilder.build().get().uri("http://localhost:9083/voucher/getVoucher/ccc").retrieve().bodyToMono(VoucherDTO.class).block()).thenReturn(voucherDTOMock);
+        assertEquals(finalParcelMock,parcelServiceMock.placeOrder(parcelMock,voucher));
     }
 }

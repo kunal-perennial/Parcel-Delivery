@@ -41,15 +41,9 @@ class OrderControllerTest {
     @Test
     void getOrder() throws Exception {
 
-        Parcel parcelMock = new Parcel();
-        parcelMock.setWeight(4);
-        parcelMock.setHeight(20);
-        parcelMock.setWidth(20);
-        parcelMock.setLength(10);
+        Parcel parcelMock = new Parcel(4,20,20,10);
 
-        Billing billingMock = new Billing();
-        billingMock.setSize(Size.LARGE);
-        billingMock.setCost(195.0);
+        Billing billingMock = new Billing(Size.LARGE,195.0);
 
         FinalParcel finalParcel = new FinalParcel(parcelMock,billingMock);
 
