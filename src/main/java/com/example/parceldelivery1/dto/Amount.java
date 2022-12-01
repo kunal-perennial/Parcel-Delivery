@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class Billing {
+public class Amount {
     private Size size;
     private double cost;
 }

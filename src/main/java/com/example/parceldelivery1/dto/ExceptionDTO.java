@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class InvalidInputs {
+public class ExceptionDTO {
 
     private int errorCode;
     private String errorMessage;
