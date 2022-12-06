@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>2.7.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>ParcelDelivery1</artifactId>
+    <artifactId>ParcelDelivery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ParcelDelivery1</name>
-    <description>ParcelDelivery1</description>
+    <name>ParcelDelivery</name>
+    <description>ParcelDelivery</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -57,7 +57,17 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version></dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
 
+        <!--for Keycloak Security purpose-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
@@ -67,18 +77,27 @@
 <!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
 <!--        </dependency>-->
 
+
+        <!--for Keycloak Testing purpose-->
+<!--        <dependency>-->
+<!--            <groupId>com.tngtech.keycloakmock</groupId>-->
+<!--            <artifactId>mock</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--            <version>0.11.0</version>-->
+<!--        </dependency>-->
+
     </dependencies>
-<!--    <dependencyManagement>-->
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>org.keycloak.bom</groupId>-->
-<!--                <artifactId>keycloak-adapter-bom</artifactId>-->
-<!--                <version>12.0.4</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
-<!--    </dependencyManagement>-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>15.0.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
