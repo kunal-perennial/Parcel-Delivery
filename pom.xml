@@ -66,38 +66,7 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-        <!--for Keycloak Security purpose-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.keycloak</groupId>-->
-<!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
-
-
-        <!--for Keycloak Testing purpose-->
-<!--        <dependency>-->
-<!--            <groupId>com.tngtech.keycloakmock</groupId>-->
-<!--            <artifactId>mock</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--            <version>0.11.0</version>-->
-<!--        </dependency>-->
-
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.keycloak.bom</groupId>
-                <artifactId>keycloak-adapter-bom</artifactId>
-                <version>15.0.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>

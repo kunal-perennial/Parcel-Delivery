@@ -36,12 +36,12 @@ class ParcelControllerTest {
     @Test
     void getOrder() throws Exception {
 
-        Parcel parcelMock = new Parcel(4D,20D,20D,10D);
+        Parcel parcelMock = new Parcel(4D,10D,20D,10D);
 
 
         double amountMock = 175.5;
 
-        String URI = "http://localhost:9082/parcel/getCost?voucher=aaa";
+        String URI = "http://localhost:9082/parcel/getCost?voucher=MYNT";
 
         Mockito.when(parcelService.getCost(Mockito.any(),Mockito.anyString())).thenReturn(amountMock);
 

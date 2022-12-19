@@ -1,7 +1,6 @@
 package com.example.parceldelivery.helper;
 
 import com.example.parceldelivery.enums.Size;
-import com.example.parceldelivery.helper.ruleimpl.*;
 import com.example.parceldelivery.model.Parcel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Condition;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -40,16 +38,6 @@ public class DataCalculator {
     @Value("${cost.volume.Large}")
     private double costLargeVolume;
 
-
-//    @Autowired
-//    private Heavy heavy;
-//    @Autowired
-//    private Small small;
-//    @Autowired
-//    private Medium medium;
-//    @Autowired
-//    private Large large;
-
     @Autowired
     private VolumeCalculator volumeCalculator;
 
@@ -63,65 +51,6 @@ public class DataCalculator {
      */
     public double calculateCost(Parcel parcel) {
         log.info("calculating Cost for parcel");
-//        double cost;
-//        if (minWeight < parcel.getWeight() && parcel.getWeight() < maxWeight) {
-//            cost = Math.round(parcel.getWeight() * costPerWeight);
-//            return new Amount(Size.HEAVY, cost);
-//        } else if (calculateVolume(parcel) < maxSmallVolume) {
-//            cost = Math.round(calculateVolume(parcel) * costSmallVolume);
-//            return new Amount(Size.SMALL, cost);
-//        } else if (maxSmallVolume < calculateVolume(parcel) && calculateVolume(parcel) < maxMediumVolume) {
-//            cost = Math.round(calculateVolume(parcel) * costMediumVolume);
-//            return new Amount(Size.MEDIUM, cost);
-//        } else {
-//            cost = Math.round(calculateVolume(parcel) * costLargeVolume);
-//            return new Amount(Size.LARGE, cost);
-//        }
-
-//        if(heavy.isApplicable(parcel)) {
-//            return heavy.calculateCost(parcel);
-//        }
-//        else if (small.isApplicable(parcel)) {
-//            return small.calculateCost(parcel);
-//        }
-//        else if (medium.isApplicable(parcel)) {
-//            return medium.calculateCost(parcel);
-//        }
-//        else {
-//            return large.calculateCost(parcel);
-//        }
-
-//        Strategy strategy;
-//
-//        try {
-//            strategy = new Strategy(new Heavy());
-//            return strategy.executeStrategy(parcel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            strategy = new Strategy(new Small());
-//            return strategy.executeStrategy(parcel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            strategy = new Strategy(new Medium());
-//            return strategy.executeStrategy(parcel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            strategy = new Strategy(new Large());
-//            return strategy.executeStrategy(parcel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return 0;
 
             Map<Size, Rules<Double>> rulesMap = createRules(parcel);
             return Stream.of(Size.values())
